@@ -7,12 +7,33 @@ import { MessageSquare, Users, Clock, LogOut, Search, Filter, Phone, Mail, Messa
 import { supabase } from "@/lib/supabase"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@/hooks/use-toast"
+import { AuthService } from "@/services/auth.service"
+import { DashboardService } from "@/services/dashboard.service"
+import { useChat } from "@/hooks/use-chat"
+import { ConversationList } from "@/components/chat/ConversationList"
+import { ChatInterface } from "@/components/chat/ChatInterface"
+import { QuickReplies } from "@/components/chat/QuickReplies"
+import { User as UserType, DashboardData } from "@/types"
 
 export default function PainelAtendente() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<UserType | null>(null)
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null)
   const [loading, setLoading] = useState(true)
+  const [showChat, setShowChat] = useState(false)
   const navigate = useNavigate()
   const { toast } = useToast()
+
+  // Hook do chat
+  const {
+    conversations,
+    activeConversation,
+    messages,
+    loading: chatLoading,
+    selectConversation,
+    sendMessage,
+    assignConversation,
+    updateConversationStatus
+  } = useChat(user?.id || '', 'atendente')
 
   useEffect(() => {
     getProfile()
@@ -20,27 +41,20 @@ export default function PainelAtendente() {
 
   const getProfile = async () => {
     try {
-      const { data: { session } } = await supabase.auth.getSession()
+      const response = await AuthService.getCurrentUser()
       
-      if (!session) {
+      if (!response.success || !response.data) {
         navigate('/login')
         return
       }
 
-      const { data: profile, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', session.user.id)
-        .single()
-
-      if (error) throw error
-
-      if (profile.tipo_usuario !== 'atendente') {
+      if (response.data.tipo_usuario !== 'atendente') {
         navigate('/login')
         return
       }
 
-      setUser(profile)
+      setUser(response.data)
+      await loadDashboardData(response.data.id)
     } catch (error: any) {
       toast({
         title: "Erro",
@@ -52,9 +66,26 @@ export default function PainelAtendente() {
     }
   }
 
+  const loadDashboardData = async (userId: string) => {
+    try {
+      const response = await DashboardService.getAttendantDashboard(userId)
+      if (response.success) {
+        setDashboardData(response.data)
+      }
+    } catch (error) {
+      console.error('Erro ao carregar dados do dashboard:', error)
+    }
+  }
+
   const handleLogout = async () => {
-    await supabase.auth.signOut()
+    await AuthService.logout()
     navigate('/')
+  }
+
+  const handleSelectReply = (content: string) => {
+    if (activeConversation) {
+      sendMessage({ content })
+    }
   }
 
   if (loading) {
@@ -63,6 +94,79 @@ export default function PainelAtendente() {
         <div className="text-center">
           <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
           <p>Carregando...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (showChat) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background to-background/80">
+        {/* Header */}
+        <header className="border-b bg-background/80 backdrop-blur-sm">
+          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div className="flex items-center space-x-3">
+              <MessageSquare className="h-8 w-8 text-primary" />
+              <div>
+                <h1 className="text-xl font-bold">Central de Atendimento</h1>
+                <p className="text-sm text-muted-foreground">
+                  {user?.nome_completo}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Button variant="outline" onClick={() => setShowChat(false)}>
+                Voltar ao Painel
+              </Button>
+              <Button variant="outline" onClick={handleLogout}>
+                <LogOut className="mr-2 h-4 w-4" />
+                Sair
+              </Button>
+            </div>
+          </div>
+        </header>
+
+        {/* Interface de Chat */}
+        <div className="container mx-auto px-4 py-6">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <div className="lg:col-span-1">
+              <ConversationList
+                conversations={conversations}
+                activeConversation={activeConversation}
+                onSelectConversation={selectConversation}
+                onCreateConversation={() => {}}
+                userType="atendente"
+              />
+            </div>
+            <div className="lg:col-span-2">
+              {activeConversation ? (
+                <ChatInterface
+                  conversation={activeConversation}
+                  currentUserId={user?.id || ''}
+                  currentUserName={user?.nome_completo || ''}
+                  onSendMessage={sendMessage}
+                  messages={messages}
+                  loading={chatLoading}
+                />
+              ) : (
+                <Card className="h-[600px] flex items-center justify-center">
+                  <div className="text-center">
+                    <MessageSquare className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                    <h3 className="text-lg font-medium mb-2">Selecione uma conversa</h3>
+                    <p className="text-muted-foreground">
+                      Escolha uma conversa da lista para começar o atendimento
+                    </p>
+                  </div>
+                </Card>
+              )}
+            </div>
+            <div className="lg:col-span-1">
+              <QuickReplies
+                onSelectReply={handleSelectReply}
+                userType="atendente"
+              />
+            </div>
+          </div>
         </div>
       </div>
     )
@@ -82,10 +186,16 @@ export default function PainelAtendente() {
               </p>
             </div>
           </div>
-          <Button variant="outline" onClick={handleLogout}>
-            <LogOut className="mr-2 h-4 w-4" />
-            Sair
-          </Button>
+          <div className="flex items-center space-x-2">
+            <Button variant="outline" onClick={() => setShowChat(true)}>
+              <MessageSquare className="mr-2 h-4 w-4" />
+              Chat
+            </Button>
+            <Button variant="outline" onClick={handleLogout}>
+              <LogOut className="mr-2 h-4 w-4" />
+              Sair
+            </Button>
+          </div>
         </div>
       </header>
 

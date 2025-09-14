@@ -1,0 +1,190 @@
+================================================================================
+                    🏥 MEDICHANNEL - TESTE AVALIATIVO
+                           SISTEMA OMNICHANNEL PARA CLÍNICAS
+================================================================================
+
+📋 INFORMAÇÕES DO TESTE
+================================================================================
+Nome do Sistema: MediChannel
+Tipo: Sistema Omnichannel para Clínicas Médicas
+Tecnologias: React + TypeScript + Supabase + Tailwind CSS
+Data do Teste: [DATA]
+Avaliador: [NOME DO PROFESSOR/AVALIADOR]
+
+🎯 OBJETIVO DO TESTE
+================================================================================
+Avaliar a funcionalidade, usabilidade e qualidade técnica do sistema
+MediChannel, verificando se atende aos requisitos de um sistema
+omnichannel para clínicas médicas.
+
+📝 CRITÉRIOS DE AVALIAÇÃO
+================================================================================
+
+1. FUNCIONALIDADE (40 pontos)
+   □ Sistema de autenticação funciona corretamente (10 pontos)
+   □ Chat em tempo real está operacional (10 pontos)
+   □ Dashboards específicos por perfil funcionam (10 pontos)
+   □ Navegação entre páginas está fluida (10 pontos)
+
+2. USABILIDADE (30 pontos)
+   □ Interface intuitiva e fácil de usar (10 pontos)
+   □ Design responsivo funciona em diferentes telas (10 pontos)
+   □ Modo escuro/claro funciona corretamente (5 pontos)
+   □ Feedback visual adequado para ações (5 pontos)
+
+3. QUALIDADE TÉCNICA (20 pontos)
+   □ Código bem estruturado e organizado (10 pontos)
+   □ Uso adequado de TypeScript (5 pontos)
+   □ Componentes reutilizáveis (5 pontos)
+
+4. INOVAÇÃO E COMPLETUDE (10 pontos)
+   □ Sistema completo e funcional (5 pontos)
+   □ Funcionalidades inovadoras implementadas (5 pontos)
+
+🔐 CREDENCIAIS PARA TESTE
+================================================================================
+
+👤 PACIENTE:
+   CPF: 123.456.789-01
+   Senha: 12345678
+
+👨‍💼 ATENDENTE:
+   CPF: 987.654.321-02
+   Senha: 12345678
+
+👨‍💻 GERENTE:
+   CPF: 456.789.123-03
+   Senha: 12345678
+
+📋 ROTEIRO DE TESTE
+================================================================================
+
+FASE 1: ACESSO E AUTENTICAÇÃO (10 minutos)
+□ Acessar http://localhost:8080
+□ Verificar se a landing page carrega corretamente
+□ Testar login com cada perfil de usuário
+□ Verificar redirecionamento correto após login
+□ Testar logout
+
+FASE 2: PAINEL DO PACIENTE (10 minutos)
+□ Fazer login como Paciente
+□ Verificar dashboard com agendamentos
+□ Testar funcionalidade de chat
+□ Iniciar nova conversa
+□ Verificar histórico de conversas
+□ Testar modo escuro/claro
+
+FASE 3: PAINEL DO ATENDENTE (15 minutos)
+□ Fazer login como Atendente
+□ Verificar central de atendimento
+□ Testar fila de conversas
+□ Usar respostas rápidas
+□ Verificar métricas de performance
+□ Testar filtros por canal
+□ Verificar busca de conversas
+
+FASE 4: PAINEL DO GERENTE (15 minutos)
+□ Fazer login como Gerente
+□ Verificar dashboard gerencial
+□ Analisar métricas gerais
+□ Verificar gestão de equipe
+□ Testar relatórios por canal
+□ Verificar configurações do sistema
+
+FASE 5: FUNCIONALIDADES AVANÇADAS (10 minutos)
+□ Testar chat em tempo real (duas abas)
+□ Verificar responsividade (redimensionar janela)
+□ Testar navegação entre perfis
+□ Verificar tratamento de erros
+□ Testar validação de formulários
+
+📊 CHECKLIST DE FUNCIONALIDADES
+================================================================================
+
+✅ SISTEMA DE AUTENTICAÇÃO
+□ Login por CPF funciona
+□ Validação de senha funciona
+□ Redirecionamento por perfil funciona
+□ Logout funciona corretamente
+
+✅ INTERFACE E NAVEGAÇÃO
+□ Landing page carrega corretamente
+□ Navegação entre páginas funciona
+□ Modo escuro/claro funciona
+□ Design responsivo funciona
+
+✅ PAINEL DO PACIENTE
+□ Dashboard carrega com dados
+□ Chat funciona corretamente
+□ Histórico de conversas funciona
+□ Ações rápidas funcionam
+
+✅ PAINEL DO ATENDENTE
+□ Central de atendimento funciona
+□ Fila de conversas funciona
+□ Respostas rápidas funcionam
+□ Métricas são exibidas
+□ Filtros funcionam
+
+✅ PAINEL DO GERENTE
+□ Dashboard gerencial funciona
+□ Métricas são exibidas
+□ Gestão de equipe funciona
+□ Relatórios funcionam
+□ Configurações funcionam
+
+✅ CHAT EM TEMPO REAL
+□ Mensagens são enviadas
+□ Mensagens são recebidas
+□ Histórico é mantido
+□ Notificações funcionam
+
+✅ RESPONSIVIDADE
+□ Funciona em desktop
+□ Funciona em tablet
+□ Funciona em mobile
+□ Elementos se adaptam
+
+📝 OBSERVAÇÕES DO AVALIADOR
+================================================================================
+
+PONTOS FORTES:
+□ _________________________________________________
+□ _________________________________________________
+□ _________________________________________________
+□ _________________________________________________
+
+PONTOS DE MELHORIA:
+□ _________________________________________________
+□ _________________________________________________
+□ _________________________________________________
+□ _________________________________________________
+
+SUGESTÕES:
+□ _________________________________________________
+□ _________________________________________________
+□ _________________________________________________
+□ _________________________________________________
+
+📊 NOTA FINAL
+================================================================================
+
+FUNCIONALIDADE: _____ / 40 pontos
+USABILIDADE: _____ / 30 pontos
+QUALIDADE TÉCNICA: _____ / 20 pontos
+INOVAÇÃO E COMPLETUDE: _____ / 10 pontos
+
+TOTAL: _____ / 100 pontos
+
+NOTA FINAL: _____ (0-10)
+
+OBSERVAÇÕES FINAIS:
+_________________________________________________________________
+_________________________________________________________________
+_________________________________________________________________
+
+ASSINATURA DO AVALIADOR: _________________________ DATA: _______
+
+================================================================================
+                           FIM DO TESTE AVALIATIVO
+================================================================================

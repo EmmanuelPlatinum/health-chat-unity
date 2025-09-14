@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { Link, useNavigate } from "react-router-dom"
 import { supabase } from "@/lib/supabase"
 import { useToast } from "@/hooks/use-toast"
+import { AuthService } from "@/services/auth.service"
 
 export default function Login() {
   const [email, setEmail] = useState("")
@@ -19,24 +21,19 @@ export default function Login() {
     setLoading(true)
 
     try {
-      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
+      const response = await AuthService.login({ email, password })
 
-      if (authError) throw authError
-
-      // Buscar perfil do usuário
-      const { data: profile, error: profileError } = await supabase
-        .from('profiles')
-        .select('tipo_usuario')
-        .eq('id', authData.user.id)
-        .single()
-
-      if (profileError) throw profileError
+      if (!response.success) {
+        toast({
+          title: "Erro no login",
+          description: response.error,
+          variant: "destructive",
+        })
+        return
+      }
 
       // Redirecionar baseado no tipo de usuário
-      switch (profile.tipo_usuario) {
+      switch (response.data.tipo_usuario) {
         case 'paciente':
           navigate('/painel-paciente')
           break
@@ -57,7 +54,7 @@ export default function Login() {
     } catch (error: any) {
       toast({
         title: "Erro no login",
-        description: error.message,
+        description: "Erro inesperado. Tente novamente.",
         variant: "destructive",
       })
     } finally {
@@ -67,6 +64,9 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-background/80 p-4">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Acesso ao Sistema</CardTitle>
@@ -77,13 +77,18 @@ export default function Login() {
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">E-mail ou CPF</Label>
+              <Label htmlFor="email">CPF</Label>
               <Input
                 id="email"
                 type="text"
-                placeholder="Digite seu e-mail ou CPF"
+                placeholder="000.000.000-00"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, '');
+                  const formatted = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                  setEmail(formatted);
+                }}
+                maxLength={14}
                 required
               />
             </div>

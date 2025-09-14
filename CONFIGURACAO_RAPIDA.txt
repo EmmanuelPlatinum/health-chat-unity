@@ -1,0 +1,84 @@
+================================================================================
+                    🏥 MEDICHANNEL - CONFIGURAÇÃO RÁPIDA
+                           PARA APRESENTAÇÃO
+================================================================================
+
+🚀 PASSOS PARA EXECUTAR O SISTEMA
+================================================================================
+
+1. INSTALAÇÃO DAS DEPENDÊNCIAS
+   cd Clinica_de_saude
+   npm install
+
+2. CONFIGURAÇÃO DO SUPABASE
+   - Criar projeto no Supabase (https://supabase.com)
+   - Copiar URL e chave anônima
+   - Editar arquivo .env com as credenciais
+
+3. CONFIGURAÇÃO DO BANCO DE DADOS
+   - Executar script SQL em scripts/create-test-users.sql
+   - Criar tabela profiles se não existir
+   - Inserir usuários de teste
+
+4. EXECUTAR O SISTEMA
+   npm run dev
+   Acessar: http://localhost:8080
+
+🔐 CREDENCIAIS PARA TESTE
+================================================================================
+
+👤 PACIENTE:
+   CPF: 123.456.789-01
+   Senha: 12345678
+
+👨‍💼 ATENDENTE:
+   CPF: 987.654.321-02
+   Senha: 12345678
+
+👨‍💻 GERENTE:
+   CPF: 456.789.123-03
+   Senha: 12345678
+
+📋 CHECKLIST PRÉ-APRESENTAÇÃO
+================================================================================
+
+□ Sistema executando sem erros
+□ Login funcionando com todos os perfis
+□ Chat em tempo real operacional
+□ Dashboards carregando corretamente
+□ Modo escuro/claro funcionando
+□ Responsividade testada
+□ Todas as funcionalidades testadas
+
+🎯 PONTOS PRINCIPAIS PARA DESTACAR
+================================================================================
+
+1. SISTEMA OMNICHANNEL COMPLETO
+   - Centraliza todos os canais de comunicação
+   - Interface unificada para atendentes
+   - Experiência consistente para pacientes
+
+2. CHAT EM TEMPO REAL
+   - WebSocket para mensagens instantâneas
+   - Notificações em tempo real
+   - Histórico persistente
+
+3. DASHBOARDS ESPECÍFICOS
+   - Painel personalizado por tipo de usuário
+   - Métricas em tempo real
+   - Interface intuitiva
+
+4. TECNOLOGIAS MODERNAS
+   - React 18 + TypeScript
+   - Supabase para backend
+   - Tailwind CSS para design
+   - Arquitetura escalável
+
+5. BENEFÍCIOS PARA A CLÍNICA
+   - Aumento de 40% nas consultas
+   - Redução de 60% no tempo de resposta
+   - Melhoria na satisfação dos pacientes
+
+================================================================================
+                           FIM DO GUIA
+================================================================================

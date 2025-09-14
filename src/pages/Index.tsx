@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Link } from "react-router-dom";
 import { 
   MessageCircle, 
@@ -30,17 +31,20 @@ const Index = () => {
               </div>
               <h1 className="text-xl font-bold">MediChannel</h1>
             </div>
-            <nav className="hidden md:flex items-center space-x-6">
-              <a href="#features" className="text-sm font-medium hover:text-primary transition-colors">
-                Funcionalidades
-              </a>
-              <a href="#benefits" className="text-sm font-medium hover:text-primary transition-colors">
-                Benefícios
-              </a>
-              <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">
-                Contato
-              </a>
-            </nav>
+            <div className="flex items-center space-x-4">
+              <nav className="hidden md:flex items-center space-x-6">
+                <a href="#features" className="text-sm font-medium hover:text-primary transition-colors">
+                  Funcionalidades
+                </a>
+                <a href="#benefits" className="text-sm font-medium hover:text-primary transition-colors">
+                  Benefícios
+                </a>
+                <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">
+                  Contato
+                </a>
+              </nav>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>

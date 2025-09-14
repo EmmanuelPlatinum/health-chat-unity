@@ -1,0 +1,155 @@
+================================================================================
+                    🏥 MEDICHANNEL - COMO EXECUTAR NO CURSOR
+                           GUIA SIMPLES PASSO A PASSO
+================================================================================
+
+🚀 COMO EXECUTAR O PROJETO NO CURSOR
+================================================================================
+
+PASSO 1: ABRIR O TERMINAL NO CURSOR
+□ Clique em "Terminal" no menu superior
+□ Ou use o atalho: Ctrl + ` (backtick)
+□ Ou vá em View > Terminal
+
+PASSO 2: NAVEGAR PARA A PASTA DO PROJETO
+□ Digite: cd Clinica_de_saude
+□ Pressione Enter
+
+PASSO 3: INSTALAR DEPENDÊNCIAS (se necessário)
+□ Digite: npm install
+□ Pressione Enter
+□ Aguarde a instalação terminar
+
+PASSO 4: EXECUTAR O PROJETO
+□ Digite: npm run dev
+□ Pressione Enter
+□ Aguarde aparecer "Local: http://localhost:8080"
+
+PASSO 5: ABRIR NO NAVEGADOR
+□ Clique no link que apareceu no terminal
+□ Ou abra o navegador e vá para: http://localhost:8080
+
+🔐 CREDENCIAIS PARA TESTE
+================================================================================
+
+👤 PACIENTE:
+   CPF: 123.456.789-01
+   Senha: 12345678
+
+👨‍💼 ATENDENTE:
+   CPF: 987.654.321-02
+   Senha: 12345678
+
+👨‍💻 GERENTE:
+   CPF: 456.789.123-03
+   Senha: 12345678
+
+⚠️ SE DER ERRO
+================================================================================
+
+ERRO: "npm não é reconhecido"
+□ Instale o Node.js: https://nodejs.org
+□ Reinicie o Cursor
+□ Tente novamente
+
+ERRO: "package.json não encontrado"
+□ Certifique-se de estar na pasta Clinica_de_saude
+□ Use: cd Clinica_de_saude
+
+ERRO: "porta já está em uso"
+□ Feche outros projetos que estejam rodando
+□ Ou use: npm run dev -- --port 3001
+
+ERRO: "Supabase não configurado"
+□ O sistema funcionará mesmo sem Supabase
+□ Use as credenciais de teste acima
+□ Para funcionalidade completa, configure o Supabase
+
+🎯 TESTE RÁPIDO
+================================================================================
+
+1. Acesse: http://localhost:8080
+2. Clique em "Começar Agora" ou "Login"
+3. Use qualquer credencial acima
+4. Teste as funcionalidades:
+   □ Modo escuro/claro (botão no canto superior direito)
+   □ Navegação entre páginas
+   □ Chat (se disponível)
+   □ Dashboards específicos
+
+📱 FUNCIONALIDADES PARA TESTAR
+================================================================================
+
+✅ LANDING PAGE
+□ Carrega corretamente
+□ Botões funcionam
+□ Design responsivo
+
+✅ LOGIN
+□ Formatação automática do CPF
+□ Validação de senha
+□ Redirecionamento por perfil
+
+✅ PAINEL DO PACIENTE
+□ Dashboard com agendamentos
+□ Botão de chat
+□ Histórico de conversas
+
+✅ PAINEL DO ATENDENTE
+□ Central de atendimento
+□ Métricas de performance
+□ Respostas rápidas
+
+✅ PAINEL DO GERENTE
+□ Dashboard gerencial
+□ Gestão de equipe
+□ Relatórios por canal
+
+✅ MODO ESCURO/CLARO
+□ Toggle no header
+□ Transições suaves
+□ Persistência da preferência
+
+🎓 PARA SUA APRESENTAÇÃO
+================================================================================
+
+DEMONSTRAÇÃO SUGERIDA (10-15 minutos):
+
+1. MOSTRAR LANDING PAGE (2 min)
+   □ Explicar o que é o sistema
+   □ Destacar benefícios
+
+2. DEMONSTRAR LOGIN (2 min)
+   □ Mostrar login por CPF
+   □ Testar com diferentes perfis
+
+3. PAINEL DO PACIENTE (3 min)
+   □ Dashboard personalizado
+   □ Funcionalidades de chat
+   □ Interface intuitiva
+
+4. PAINEL DO ATENDENTE (3 min)
+   □ Central unificada
+   □ Respostas rápidas
+   □ Métricas em tempo real
+
+5. PAINEL DO GERENTE (3 min)
+   □ Supervisão da equipe
+   □ Relatórios detalhados
+   □ Configurações do sistema
+
+6. FUNCIONALIDADES AVANÇADAS (2 min)
+   □ Modo escuro/claro
+   □ Responsividade
+   □ Chat em tempo real
+
+PONTOS PARA DESTACAR:
+□ Sistema omnichannel completo
+□ Interface moderna e intuitiva
+□ Tecnologias atuais (React + TypeScript)
+□ Benefícios reais para clínicas
+□ Código bem estruturado
+
+================================================================================
+                           FIM DO GUIA
+================================================================================
