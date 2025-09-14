@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 import { 
   MessageCircle, 
   Users, 
@@ -60,8 +61,8 @@ const Index = () => {
             Melhore a experiência dos pacientes e a produtividade da sua equipe.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:shadow-elegant transition-all duration-300">
-              Começar Agora
+            <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:shadow-elegant transition-all duration-300" asChild>
+              <Link to="/login">Começar Agora</Link>
             </Button>
             <Button variant="outline" size="lg">
               Ver Demonstração
@@ -273,8 +274,8 @@ const Index = () => {
             </CardHeader>
             <CardContent>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:shadow-elegant transition-all duration-300">
-                  Começar Teste Gratuito
+                <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:shadow-elegant transition-all duration-300" asChild>
+                  <Link to="/login">Começar Teste Gratuito</Link>
                 </Button>
                 <Button variant="outline" size="lg">
                   Agendar Demonstração
