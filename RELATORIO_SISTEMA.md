@@ -23,6 +23,8 @@ O **MediChannel** é um sistema omnichannel para clínicas médicas desenvolvido
    - Tailwind CSS (estilização)
    - Shadcn/ui (componentes)
    - Supabase (backend)
+   - Feito pelo lovable inicialmente
+   - Aprimorado e finalizado pelo Cursor IA
 
 2. **Estrutura Organizada**:
    ```
