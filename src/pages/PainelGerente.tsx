@@ -15,9 +15,10 @@ import {
   Eye,
   AlertTriangle 
 } from "lucide-react"
-import { supabase } from "@/lib/supabase"
+import { supabase, isSupabaseConfigured } from "@/lib/supabase"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@/hooks/use-toast"
+import { AuthService } from "@/services/auth.service"
 
 export default function PainelGerente() {
   const [user, setUser] = useState<any>(null)
@@ -31,6 +32,26 @@ export default function PainelGerente() {
 
   const getProfile = async () => {
     try {
+      if (!isSupabaseConfigured()) {
+        // Usar dados do localStorage para demonstração
+        const userStr = localStorage.getItem('currentUser')
+        if (!userStr) {
+          navigate('/login')
+          return
+        }
+        
+        const user = JSON.parse(userStr)
+        if (user.tipo_usuario !== 'gerente') {
+          navigate('/login')
+          return
+        }
+        
+        setUser(user)
+        setLoading(false)
+        return
+      }
+
+      // Código original do Supabase
       const { data: { session } } = await supabase.auth.getSession()
       
       if (!session) {
@@ -64,7 +85,7 @@ export default function PainelGerente() {
   }
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
+    await AuthService.logout()
     navigate('/')
   }
 

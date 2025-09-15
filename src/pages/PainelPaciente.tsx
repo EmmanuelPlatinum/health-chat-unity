@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, MessageSquare, User, LogOut, Clock, Phone, Mail } from "lucide-react"
-import { supabase } from "@/lib/supabase"
+import { supabase, isSupabaseConfigured } from "@/lib/supabase"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@/hooks/use-toast"
 import { AuthService } from "@/services/auth.service"
@@ -38,6 +38,25 @@ export default function PainelPaciente() {
 
   const getProfile = async () => {
     try {
+      if (!isSupabaseConfigured()) {
+        // Usar dados do localStorage para demonstração
+        const userStr = localStorage.getItem('currentUser')
+        if (!userStr) {
+          navigate('/login')
+          return
+        }
+        
+        const user = JSON.parse(userStr)
+        if (user.tipo_usuario !== 'paciente') {
+          navigate('/login')
+          return
+        }
+        
+        setUser(user)
+        setLoading(false)
+        return
+      }
+
       const response = await AuthService.getCurrentUser()
       
       if (!response.success || !response.data) {
