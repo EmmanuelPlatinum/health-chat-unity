@@ -1,5 +1,39 @@
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { User, LoginForm, RegisterForm, ApiResponse } from '@/types';
+
+// Dados mockados para demonstração
+const mockUsers: User[] = [
+  {
+    id: '1',
+    email: 'paciente@teste.com',
+    nome_completo: 'João Silva',
+    cpf: '12345678901',
+    data_nascimento: '1990-01-01',
+    telefone: '11999999999',
+    tipo_usuario: 'paciente',
+    created_at: new Date().toISOString()
+  },
+  {
+    id: '2',
+    email: 'atendente@teste.com',
+    nome_completo: 'Maria Santos',
+    cpf: '98765432102',
+    data_nascimento: '1985-05-15',
+    telefone: '11888888888',
+    tipo_usuario: 'atendente',
+    created_at: new Date().toISOString()
+  },
+  {
+    id: '3',
+    email: 'gerente@teste.com',
+    nome_completo: 'Carlos Oliveira',
+    cpf: '45678912303',
+    data_nascimento: '1980-12-10',
+    telefone: '11777777777',
+    tipo_usuario: 'gerente',
+    created_at: new Date().toISOString()
+  }
+];
 
 export class AuthService {
   /**
@@ -7,11 +41,43 @@ export class AuthService {
    */
   static async login(credentials: LoginForm): Promise<ApiResponse<User>> {
     try {
-      // Primeiro, buscar o usuário pelo CPF
+      // Se Supabase não estiver configurado, usar dados mockados
+      if (!isSupabaseConfigured()) {
+        const cpfLimpo = credentials.email.replace(/\D/g, '');
+        const user = mockUsers.find(u => u.cpf === cpfLimpo);
+        
+        if (!user) {
+          return {
+            data: null as any,
+            success: false,
+            error: 'CPF não encontrado'
+          };
+        }
+
+        if (credentials.password !== '12345678') {
+          return {
+            data: null as any,
+            success: false,
+            error: 'Senha incorreta'
+          };
+        }
+
+        // Salvar no localStorage para simular sessão
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('isAuthenticated', 'true');
+
+        return {
+          data: user,
+          success: true,
+          message: 'Login realizado com sucesso!'
+        };
+      }
+
+      // Código original do Supabase
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('*')
-        .eq('cpf', credentials.email.replace(/\D/g, '')) // Remove formatação do CPF
+        .eq('cpf', credentials.email.replace(/\D/g, ''))
         .single();
 
       if (profileError || !profile) {
@@ -22,7 +88,6 @@ export class AuthService {
         };
       }
 
-      // Agora fazer login com o email do perfil
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email: profile.email,
         password: credentials.password,
@@ -99,6 +164,18 @@ export class AuthService {
    */
   static async logout(): Promise<ApiResponse<null>> {
     try {
+      if (!isSupabaseConfigured()) {
+        // Limpar dados do localStorage
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('isAuthenticated');
+        
+        return {
+          data: null,
+          success: true,
+          message: 'Logout realizado com sucesso!'
+        };
+      }
+
       const { error } = await supabase.auth.signOut();
       
       if (error) throw error;
@@ -122,6 +199,23 @@ export class AuthService {
    */
   static async getCurrentUser(): Promise<ApiResponse<User>> {
     try {
+      if (!isSupabaseConfigured()) {
+        const userStr = localStorage.getItem('currentUser');
+        if (!userStr) {
+          return {
+            data: null as any,
+            success: false,
+            error: 'Usuário não autenticado'
+          };
+        }
+        
+        const user = JSON.parse(userStr);
+        return {
+          data: user,
+          success: true
+        };
+      }
+
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session) {
@@ -158,6 +252,10 @@ export class AuthService {
    */
   static async isAuthenticated(): Promise<boolean> {
     try {
+      if (!isSupabaseConfigured()) {
+        return localStorage.getItem('isAuthenticated') === 'true';
+      }
+
       const { data: { session } } = await supabase.auth.getSession();
       return !!session;
     } catch {

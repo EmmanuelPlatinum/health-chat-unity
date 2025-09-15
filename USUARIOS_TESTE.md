@@ -48,6 +48,11 @@
 
 ## ⚠️ **NOTA IMPORTANTE**
 
+✅ **SISTEMA FUNCIONA SEM SUPABASE!**
+- O sistema usa dados mockados para demonstração
+- Login funciona com as credenciais acima
+- Todas as funcionalidades estão disponíveis
+
 Estes usuários são para **TESTE APENAS**. Em produção, você deve:
 1. Configurar o Supabase com credenciais reais
 2. Criar usuários reais através do sistema de cadastro
